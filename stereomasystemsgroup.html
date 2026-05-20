@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stereoma Systems Group</title>
+  <meta name="description" content="We help early-stage, venture-backed drone hardware startups reduce expensive design failures by validating their designs with CAD and simulation before physical builds." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #1E5BFF;
+      --deep: #0047CC;
+      --light: #B3D1FF;
+      --pale: #F0F6FF;
+      --border: #B3D1FF;
+      --text: #334155;
+      --muted: #94A3B8;
+      --white: #FFFFFF;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: #fff; overflow-x: hidden; }
+    .arch { font-family: 'Architects Daughter', cursive; }
+    a { text-decoration: none; }
+    img { max-width: 100%; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.96); backdrop-filter: blur(8px);
+      border-bottom: 1px solid #e0ecff; box-shadow: 0 1px 8px rgba(30,91,255,0.06);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-text { line-height: 1; }
+    .logo-name { font-family: 'Architects Daughter', cursive; font-size: 20px; color: var(--blue); }
+    .logo-sub { font-size: 9px; letter-spacing: 0.25em; font-weight: 600; color: var(--deep); margin-top: 3px; }
+    .btn-nav {
+      background: var(--blue); color: #fff; font-family: 'Inter', sans-serif;
+      font-weight: 700; font-size: 14px; padding: 10px 20px; border-radius: 6px;
+      transition: background 0.2s, transform 0.2s; display: inline-block;
+    }
+    .btn-nav:hover { background: var(--deep); transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; background: var(--deep);
+      display: flex; align-items: center; padding-top: 80px; position: relative; overflow: hidden;
+    }
+    .hero-grid {
+      position: absolute; inset: 0; opacity: 0.07;
+      background-image: linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto; padding: 80px 24px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 999px; padding: 6px 14px; margin-bottom: 24px;
+    }
+    .hero-badge-dot { width: 8px; height: 8px; background: var(--light); border-radius: 50%; }
+    .hero-badge-text { font-size: 13px; color: var(--light); font-weight: 500; letter-spacing: 0.02em; }
+    .hero h1 { font-family: 'Architects Daughter', cursive; color: #fff; font-size: clamp(40px, 5vw, 58px); line-height: 1.15; margin-bottom: 24px; }
+    .hero h1 span { color: var(--light); }
+    .hero p { color: rgba(255,255,255,0.82); font-size: 18px; line-height: 1.65; margin-bottom: 36px; max-width: 480px; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 16px; }
+    .btn-primary {
+      background: #fff; color: var(--blue); font-weight: 700; font-size: 16px;
+      padding: 14px 28px; border-radius: 6px; display: inline-block;
+      transition: background 0.2s, transform 0.2s; box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .btn-primary:hover { background: var(--light); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent; color: #fff; font-weight: 700; font-size: 16px;
+      padding: 14px 28px; border-radius: 6px; display: inline-block;
+      border: 2px solid #fff; transition: all 0.2s;
+    }
+    .btn-outline:hover { background: #fff; color: var(--blue); }
+    .hero-visual {
+      display: flex; justify-content: flex-end; align-items: center;
+    }
+    .hero-ring {
+      width: 300px; height: 300px; border-radius: 50%;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-ring-inner {
+      width: 210px; height: 210px; border-radius: 50%;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-stats {
+      margin-top: 64px; padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+    }
+    .hero-stat-val { font-family: 'Architects Daughter', cursive; color: #fff; font-size: 20px; margin-bottom: 4px; }
+    .hero-stat-label { color: rgba(255,255,255,0.5); font-size: 13px; }
+
+    /* SECTIONS */
+    section { padding: 96px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 12px;
+    }
+    .section-title { font-family: 'Architects Daughter', cursive; color: var(--deep); font-size: clamp(32px, 4vw, 48px); line-height: 1.2; margin-bottom: 20px; }
+    .section-title span { color: var(--blue); }
+    .section-sub { font-size: 18px; line-height: 1.65; color: var(--text); max-width: 640px; }
+    .text-center { text-align: center; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+    .mb-16 { margin-bottom: 64px; }
+    .mb-12 { margin-bottom: 48px; }
+
+    /* CARDS */
+    .card-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .card-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .card-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .card {
+      background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 32px;
+      transition: box-shadow 0.2s;
+    }
+    .card:hover { box-shadow: 0 4px 20px rgba(30,91,255,0.1); }
+    .card-pale { background: var(--pale); border: 1px solid var(--border); border-radius: 12px; padding: 32px; }
+    .card-dark {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px; padding: 28px; transition: background 0.2s;
+    }
+    .card-dark:hover { background: rgba(255,255,255,0.15); }
+    .card-icon { margin-bottom: 20px; }
+    .card-title { font-family: 'Architects Daughter', cursive; color: var(--deep); font-size: 20px; margin-bottom: 12px; }
+    .card-body { font-size: 15px; line-height: 1.65; color: var(--text); }
+
+    /* PROBLEM */
+    .bg-white { background: #fff; }
+    .bg-pale { background: var(--pale); }
+    .bg-deep { background: var(--deep); }
+    .bg-blue { background: var(--blue); }
+
+    /* SOLUTION */
+    .solution { background: var(--deep); position: relative; overflow: hidden; }
+    .solution-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .solution h2 { font-family: 'Architects Daughter', cursive; color: #fff; font-size: clamp(32px,4vw,48px); line-height: 1.2; margin-bottom: 24px; }
+    .solution h2 span { color: var(--light); }
+    .solution p { color: rgba(255,255,255,0.82); font-size: 18px; line-height: 1.65; margin-bottom: 20px; }
+    .solution-tag { color: var(--light); }
+    .sol-card { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 20px; }
+    .sol-card h4 { font-family: 'Architects Daughter', cursive; color: #fff; font-size: 15px; margin-bottom: 8px; }
+    .sol-card p { color: rgba(255,255,255,0.62); font-size: 13px; line-height: 1.6; }
+
+    /* CASE STUDY */
+    .stat-val { font-family: 'Architects Daughter', cursive; color: var(--blue); font-size: 48px; margin-bottom: 12px; }
+    .stat-label { font-weight: 600; color: var(--deep); font-size: 15px; line-height: 1.4; margin-bottom: 12px; }
+    .stat-source { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .org-tag {
+      display: inline-block; background: var(--blue); color: #fff;
+      font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px;
+    }
+    .callout {
+      background: var(--deep); border-radius: 16px; padding: 48px;
+      text-align: center;
+    }
+    .callout h3 { font-family: 'Architects Daughter', cursive; color: #fff; font-size: clamp(22px,3vw,32px); margin-bottom: 12px; }
+    .callout p { color: rgba(255,255,255,0.65); font-size: 16px; max-width: 540px; margin: 0 auto; line-height: 1.65; }
+
+    /* WHO ITS FOR */
+    .who-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .check-list { display: flex; flex-direction: column; gap: 12px; }
+    .check-item {
+      display: flex; align-items: center; gap: 16px;
+      background: var(--pale); border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px 20px;
+    }
+    .check-icon { flex-shrink: 0; }
+    .check-text { font-weight: 500; color: var(--deep); font-size: 15px; }
+
+    /* HOW IT WORKS */
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .step { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 32px; text-align: center; transition: box-shadow 0.2s; }
+    .step:hover { box-shadow: 0 4px 20px rgba(30,91,255,0.1); }
+    .step-num {
+      width: 56px; height: 56px; background: var(--blue); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+      font-family: 'Architects Daughter', cursive; color: #fff; font-size: 20px;
+    }
+    .step-icon { display: flex; justify-content: center; margin-bottom: 16px; }
+    .step-title { font-family: 'Architects Daughter', cursive; color: var(--deep); font-size: 20px; margin-bottom: 12px; }
+    .step-body { font-size: 14px; line-height: 1.7; color: var(--text); }
+
+    /* BRAND PERSONALITY */
+    .personality { background: var(--blue); }
+    .personality h2 { font-family: 'Architects Daughter', cursive; color: #fff; font-size: clamp(32px,4vw,48px); margin-bottom: 0; }
+    .personality-tag { color: var(--light); }
+    .p-card { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 28px; text-align: center; transition: background 0.2s; }
+    .p-card:hover { background: rgba(255,255,255,0.15); }
+    .p-icon { display: flex; justify-content: center; margin-bottom: 20px; }
+    .p-label { font-family: 'Architects Daughter', cursive; color: #fff; font-size: 16px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; }
+    .p-desc { color: rgba(255,255,255,0.65); font-size: 13px; line-height: 1.65; }
+    .tagline { font-family: 'Architects Daughter', cursive; color: var(--light); font-size: 24px; font-style: italic; text-align: center; margin-top: 64px; }
+
+    /* CTA */
+    .cta-section { background: #fff; }
+    .cta-section h2 { font-family: 'Architects Daughter', cursive; color: var(--deep); font-size: clamp(32px,4vw,48px); line-height: 1.2; margin-bottom: 24px; }
+    .cta-section p { font-size: 18px; line-height: 1.65; color: var(--text); max-width: 520px; margin: 0 auto 40px; }
+    .btn-cta {
+      display: inline-block; background: var(--blue); color: #fff;
+      font-weight: 700; font-size: 18px; padding: 18px 48px; border-radius: 6px;
+      transition: all 0.2s; box-shadow: 0 4px 20px rgba(30,91,255,0.3);
+    }
+    .btn-cta:hover { background: var(--deep); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(30,91,255,0.35); }
+    .cta-note { color: var(--muted); font-size: 13px; margin-top: 16px; }
+
+    /* FOOTER */
+    footer { background: var(--deep); padding: 56px 24px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+    .footer-logo-name { font-family: 'Architects Daughter', cursive; font-size: 20px; color: #fff; }
+    .footer-logo-sub { font-size: 9px; letter-spacing: 0.25em; font-weight: 600; color: var(--light); margin-top: 3px; }
+    .footer-desc { color: rgba(255,255,255,0.55); font-size: 14px; line-height: 1.65; margin-top: 16px; max-width: 240px; }
+    .footer-heading { font-family: 'Architects Daughter', cursive; color: #fff; font-size: 15px; margin-bottom: 16px; }
+    .footer-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--light); font-size: 14px; transition: color 0.2s;
+    }
+    .footer-link:hover { color: #fff; }
+    .footer-text { color: rgba(255,255,255,0.75); font-size: 14px; margin-bottom: 16px; }
+    .btn-footer {
+      display: inline-block; background: #fff; color: var(--blue);
+      font-weight: 600; font-size: 14px; padding: 10px 24px; border-radius: 6px;
+      transition: background 0.2s;
+    }
+    .btn-footer:hover { background: var(--light); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.12); padding-top: 32px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: gap;
+    }
+    .footer-tagline { font-family: 'Architects Daughter', cursive; color: var(--light); font-size: 20px; font-style: italic; }
+    .footer-copy { color: rgba(255,255,255,0.35); font-size: 13px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .hero-stats { grid-template-columns: repeat(3, 1fr); }
+      .solution-grid { grid-template-columns: 1fr; }
+      .who-grid { grid-template-columns: 1fr; }
+      .card-grid-3 { grid-template-columns: 1fr; }
+      .card-grid-4 { grid-template-columns: 1fr 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .hero-stats { grid-template-columns: 1fr; }
+      .card-grid-2 { grid-template-columns: 1fr; }
+      .card-grid-4 { grid-template-columns: 1fr; }
+      .hero-ctas { flex-direction: column; }
+      .callout { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+        <circle cx="18" cy="18" r="15" stroke="#1E5BFF" stroke-width="2"/>
+        <ellipse cx="18" cy="18" rx="7" ry="15" stroke="#1E5BFF" stroke-width="2"/>
+        <line x1="3" y1="18" x2="33" y2="18" stroke="#1E5BFF" stroke-width="2"/>
+        <path d="M5 11 Q18 14 31 11" stroke="#1E5BFF" stroke-width="1.5" fill="none"/>
+        <path d="M5 25 Q18 22 31 25" stroke="#1E5BFF" stroke-width="1.5" fill="none"/>
+      </svg>
+      <div class="logo-text">
+        <div class="logo-name">STEREOMA</div>
+        <div class="logo-sub">SYSTEMS GROUP</div>
+      </div>
+    </div>
+    <a href="https://calendly.com/brayden-emmetti/stereomasystemsroup" target="_blank" class="btn-nav">Book a Call</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div style="max-width:1100px;margin:0 auto;padding:80px 24px;position:relative;z-index:1;width:100%;">
+    <div class="hero-inner" style="padding:0;">
+      <div>
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          <span class="hero-badge-text">Design Validation for Drone Hardware</span>
+        </div>
+        <h1 class="arch">Build Confidence<br /><span>Before You Build</span></h1>
+        <p>We help early-stage, venture-backed drone hardware startups reduce expensive design failures by validating their designs with CAD and simulation — before the first physical build.</p>
+        <div class="hero-ctas">
+          <a href="https://calendly.com/brayden-emmetti/stereomasystemsroup" target="_blank" class="btn-primary">Is This Right For Me? &rarr;</a>
+          <a href="https://calendly.com/brayden-emmetti/stereomasystemsroup" target="_blank" class="btn-outline">Book a Discovery Call &rarr;</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-ring">
+          <div class="hero-ring-inner">
+            <svg width="120" height="120" viewBox="0 0 64 64" fill="none">
+              <rect x="26" y="26" width="12" height="12" rx="3" stroke="white" stroke-width="2"/>
+              <circle cx="32" cy="32" r="2.5" stroke="white" stroke-width="1.5"/>
+              <line x1="26" y1="26" x2="14" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              <line x1="38" y1="26" x2="50" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              <line x1="26" y1="38" x2="14" y2="50" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              <line x1="38" y1="38" x2="50" y2="50" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="12" cy="12" r="3" stroke="white" stroke-width="1.8"/>
+              <circle cx="52" cy="12" r="3" stroke="white" stroke-width="1.8"/>
+              <circle cx="12" cy="52" r="3" stroke="white" stroke-width="1.8"/>
+              <circle cx="52" cy="52" r="3" stroke="white" stroke-width="1.8"/>
+              <ellipse cx="12" cy="12" rx="8" ry="2" stroke="white" stroke-width="1.5" transform="rotate(-45 12 12)"/>
+              <ellipse cx="52" cy="12" rx="8" ry="2" stroke="white" stroke-width="1.5" transform="rotate(45 52 12)"/>
+              <ellipse cx="12" cy="52" rx="8" ry="2" stroke="white" stroke-width="1.5" transform="rotate(45 12 52)"/>
+              <ellipse cx="52" cy="52" rx="8" ry="2" stroke="white" stroke-width="1.5" transform="rotate(-45 52 52)"/>
+              <line x1="29" y1="38" x2="27" y2="44" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="35" y1="38" x2="37" y2="44" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="25" y1="44" x2="39" y2="44" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-val">CAD + Sim</div>
+        <div class="hero-stat-label">Reduce Physical Build Risk</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">Early Stage</div>
+        <div class="hero-stat-label">Before First Prototype</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">Hardware Focused</div>
+        <div class="hero-stat-label">For Venture-Backed Teams</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="bg-white">
+  <div class="section-inner">
+    <div class="text-center mb-16">
+      <div class="section-tag">The Problem</div>
+      <h2 class="section-title arch">Hardware failures are expensive.<br /><span>Preventable ones are unacceptable.</span></h2>
+    </div>
+    <div class="card-grid-3">
+      <div class="card-pale">
+        <div class="card-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="13" stroke="#1E5BFF" stroke-width="1.8"/>
+            <line x1="16" y1="8" x2="16" y2="17" stroke="#1E5BFF" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="16" cy="21" r="1.5" fill="#1E5BFF"/>
+          </svg>
+        </div>
+        <h3 class="card-title">Costly Late-Stage Failures</h3>
+        <p class="card-body">Physical prototypes reveal design flaws after significant capital has already been committed — when fixes are most expensive.</p>
+      </div>
+      <div class="card-pale">
+        <div class="card-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect x="4" y="8" width="24" height="16" rx="2" stroke="#1E5BFF" stroke-width="1.8"/>
+            <line x1="10" y1="24" x2="8" y2="28" stroke="#1E5BFF" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="22" y1="24" x2="24" y2="28" stroke="#1E5BFF" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="6" y1="28" x2="26" y2="28" stroke="#1E5BFF" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="card-title">Investor Confidence at Risk</h3>
+        <p class="card-body">A failed first build can shake investor trust and stall funding rounds at the exact moment you need momentum.</p>
+      </div>
+      <div class="card-pale">
+        <div class="card-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="13" stroke="#1E5BFF" stroke-width="1.8"/>
+            <path d="M10 16 Q13 10 16 16 Q19 22 22 16" stroke="#1E5BFF" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="card-title">Iteration Cycles Burn Runway</h3>
+        <p class="card-body">Each build-test-fix cycle without pre-validation burns weeks and dollars — resources early-stage companies cannot afford to waste.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution">
+  <div class="section-inner">
+    <div class="solution-grid">
+      <div>
+        <div class="section-tag solution-tag">The Service</div>
+        <h2 class="arch">Validate first.<br /><span>Build with confidence.</span></h2>
+        <p>I help early-stage, venture-backed drone hardware startups reduce expensive design failures by validating their designs with <strong style="color:#fff;">CAD modeling and simulation</strong> — before a single physical component is manufactured.</p>
+        <p style="color:rgba(255,255,255,0.65);font-size:16px;">The result: your engineering team gets a clear picture of where designs will succeed or fail, giving founders, engineers, and investors the confidence to move forward.</p>
+      </div>
+      <div class="card-grid-2">
+        <div class="sol-card">
+          <h4>CAD Design Review</h4>
+          <p>Detailed analysis of your 3D models for structural and mechanical integrity.</p>
+        </div>
+        <div class="sol-card">
+          <h4>Simulation Analysis</h4>
+          <p>Physics-based simulations revealing how your drone behaves under real conditions.</p>
+        </div>
+        <div class="sol-card">
+          <h4>Failure Mode Identification</h4>
+          <p>Proactively surface the design risks before they become physical failures.</p>
+        </div>
+        <div class="sol-card">
+          <h4>Validation Report</h4>
+          <p>A clear, actionable report your team and investors can act on immediately.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDY -->
+<section class="bg-pale">
+  <div class="section-inner">
+    <div class="text-center mb-16">
+      <div class="section-tag">The Case for Validation</div>
+      <h2 class="section-title arch">The industry figured this out.<br /><span>Most startups have not yet.</span></h2>
+      <p class="section-sub mx-auto" style="text-align:center;">Personal case studies are coming. In the meantime, here is what the data and the organizations that build the world's most demanding hardware already know.</p>
+    </div>
+    <div class="card-grid-3 mb-12">
+      <div class="card" style="text-align:center;">
+        <div class="stat-val">4.5x</div>
+        <div class="stat-label">Return on simulation investment</div>
+        <div class="stat-source">Aberdeen Group Research</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div class="stat-val">76%</div>
+        <div class="stat-label">Of product defects are introduced before the first physical build</div>
+        <div class="stat-source">NIST Manufacturing Study</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div class="stat-val">$1M+</div>
+        <div class="stat-label">Average cost of a hardware recall or major design rework at prototype stage</div>
+        <div class="stat-source">Product Development Institute</div>
+      </div>
+    </div>
+    <div class="card-grid-3" style="margin-bottom:48px;">
+      <div class="card">
+        <div class="org-tag">NASA JPL</div>
+        <p style="font-size:14px;line-height:1.7;color:#334155;">The Perseverance rover team ran thousands of simulation hours before a single physical component was committed to manufacturing. Simulation is not a shortcut. It is the standard.</p>
+      </div>
+      <div class="card">
+        <div class="org-tag">DJI Engineering</div>
+        <p style="font-size:14px;line-height:1.7;color:#334155;">DJI puts aerodynamic and structural simulation ahead of every physical prototype cycle. It is a core reason they ship products that work at scale.</p>
+      </div>
+      <div class="card">
+        <div class="org-tag">DARPA Drone Programs</div>
+        <p style="font-size:14px;line-height:1.7;color:#334155;">Every drone system funded through DARPA rapid development programs has a mandated simulation validation gate before hardware procurement. It is the entry point, not an option.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <h3>Every serious hardware team validates before they build.</h3>
+      <p>The question is whether you do it with simulation first or with a failed physical prototype.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHO ITS FOR -->
+<section class="bg-white">
+  <div class="section-inner">
+    <div class="who-grid">
+      <div>
+        <div class="section-tag">Who This Is For</div>
+        <h2 class="section-title arch">Built for founders who<br /><span>cannot afford to guess.</span></h2>
+        <p class="section-sub">If you are building a drone hardware product and need to prove your design before committing to physical manufacturing, this is for you.</p>
+      </div>
+      <div class="check-list">
+        <div class="check-item">
+          <div class="check-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="9" stroke="#1E5BFF" stroke-width="1.5"/>
+              <path d="M6 10l3 3 5-5" stroke="#1E5BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="check-text">Early-stage drone hardware startup</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="9" stroke="#1E5BFF" stroke-width="1.5"/>
+              <path d="M6 10l3 3 5-5" stroke="#1E5BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="check-text">Venture-backed or seeking investment</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="9" stroke="#1E5BFF" stroke-width="1.5"/>
+              <path d="M6 10l3 3 5-5" stroke="#1E5BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="check-text">Pre-build or early physical prototype phase</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="9" stroke="#1E5BFF" stroke-width="1.5"/>
+              <path d="M6 10l3 3 5-5" stroke="#1E5BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="check-text">Engineering team has CAD files or designs ready</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="9" stroke="#1E5BFF" stroke-width="1.5"/>
+              <path d="M6 10l3 3 5-5" stroke="#1E5BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="check-text">Cannot afford a costly build-fail-rebuild cycle</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="9" stroke="#1E5BFF" stroke-width="1.5"/>
+              <path d="M6 10l3 3 5-5" stroke="#1E5BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="check-text">Need to show investors the product will work</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="bg-pale">
+  <div class="section-inner">
+    <div class="text-center mb-16">
+      <div class="section-tag">How It Works</div>
+      <h2 class="section-title arch" style="margin-bottom:0;">Three steps to a validated design.</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <rect x="6" y="8" width="28" height="24" rx="3" stroke="#1E5BFF" stroke-width="1.8"/>
+            <line x1="12" y1="16" x2="28" y2="16" stroke="#1E5BFF" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="12" y1="21" x2="22" y2="21" stroke="#1E5BFF" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="30" cy="30" r="7" fill="white" stroke="#1E5BFF" stroke-width="1.8"/>
+            <line x1="30" y1="27" x2="30" y2="31" stroke="#1E5BFF" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="30" cy="33" r="0.8" fill="#1E5BFF"/>
+          </svg>
+        </div>
+        <div class="step-title">Discovery Consultation</div>
+        <p class="step-body">We dive deep into your drone design. Where are you in the build process? What keeps you up at night about the design? What does this product need to do well? That conversation shapes everything that comes after.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="12" stroke="#1E5BFF" stroke-width="1.8"/>
+            <path d="M14 20 Q17 13 20 20 Q23 27 26 20" stroke="#1E5BFF" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+            <line x1="20" y1="8" x2="20" y2="6" stroke="#1E5BFF" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="32" y1="20" x2="34" y2="20" stroke="#1E5BFF" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="20" y1="32" x2="20" y2="34" stroke="#1E5BFF" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="8" y1="20" x2="6" y2="20" stroke="#1E5BFF" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="step-title">CAD and Simulation Analysis</div>
+        <p class="step-body">I work through your CAD files in two passes. First, structural and mechanical integrity — loads, joints, material decisions, and how the frame holds together under stress. Then flight and system dynamics — how the design actually behaves in the air, where performance breaks down, and what the simulation says about real operating conditions.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <rect x="8" y="6" width="24" height="28" rx="2" stroke="#1E5BFF" stroke-width="1.8"/>
+            <path d="M14 20l4 4 8-8" stroke="#1E5BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="14" y1="13" x2="26" y2="13" stroke="#1E5BFF" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="step-title">Validation Report and Recommendations</div>
+        <p class="step-body">You receive a clear, prioritized report: what will work, what needs refinement, and exactly what to change — so your team builds right the first time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND PERSONALITY -->
+<section class="personality">
+  <div class="section-inner">
+    <div class="text-center mb-16">
+      <div class="section-tag personality-tag">Brand Personality</div>
+      <h2 class="arch" style="color:#fff;font-size:clamp(32px,4vw,48px);">Engineering with purpose.</h2>
+    </div>
+    <div class="card-grid-4">
+      <div class="p-card">
+        <div class="p-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <circle cx="18" cy="18" r="14" stroke="white" stroke-width="1.8"/>
+            <ellipse cx="18" cy="18" rx="6" ry="14" stroke="white" stroke-width="1.8"/>
+            <line x1="4" y1="18" x2="32" y2="18" stroke="white" stroke-width="1.5"/>
+            <path d="M6 12 Q18 15 30 12" stroke="white" stroke-width="1.2" fill="none"/>
+            <path d="M6 24 Q18 21 30 24" stroke="white" stroke-width="1.2" fill="none"/>
+          </svg>
+        </div>
+        <div class="p-label">Global</div>
+        <p class="p-desc">We think beyond borders and design solutions that connect the world.</p>
+      </div>
+      <div class="p-card">
+        <div class="p-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <path d="M18 6 L18 12 M13 8 L16 13 M9 12 L13 15 M8 18 L12 18 M9 24 L13 21 M13 28 L16 23 M18 30 L18 24 M23 28 L20 23 M27 24 L23 21 M28 18 L24 18 M27 12 L23 15 M23 8 L20 13" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="18" cy="18" r="5" stroke="white" stroke-width="1.8"/>
+            <circle cx="18" cy="18" r="2" fill="white"/>
+          </svg>
+        </div>
+        <div class="p-label">Engineered</div>
+        <p class="p-desc">We lead with precision, technical excellence, and disciplined execution.</p>
+      </div>
+      <div class="p-card">
+        <div class="p-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <circle cx="14" cy="12" r="5" stroke="white" stroke-width="1.8"/>
+            <circle cx="24" cy="14" r="4" stroke="white" stroke-width="1.8"/>
+            <path d="M4 30 Q4 22 14 22 Q24 22 24 30" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+            <path d="M24 22 Q31 22 31 30" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="p-label">Human</div>
+        <p class="p-desc">We collaborate, listen, and build lasting relationships.</p>
+      </div>
+      <div class="p-card">
+        <div class="p-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <polyline points="4,28 12,18 18,22 28,10" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="24,10 28,10 28,14" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="4" y1="30" x2="32" y2="30" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="p-label">Forward-Thinking</div>
+        <p class="p-desc">We embrace innovation and build systems for a better tomorrow.</p>
+      </div>
+    </div>
+    <div class="tagline">"Engineered connections. Global impact."</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section-inner text-center">
+    <div class="section-tag">Get Started</div>
+    <h2 class="arch">Ready to validate<br />your design?</h2>
+    <p>Book a free 15 minute call. We will talk through your design, your timeline, and whether simulation validation is the right move for your team right now.</p>
+    <a href="https://calendly.com/brayden-emmetti/stereomasystemsroup" target="_blank" class="btn-cta">Book Your Free Call &rarr;</a>
+    <div class="cta-note">No commitment. No pressure.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="logo">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <circle cx="18" cy="18" r="15" stroke="white" stroke-width="2"/>
+            <ellipse cx="18" cy="18" rx="7" ry="15" stroke="white" stroke-width="2"/>
+            <line x1="3" y1="18" x2="33" y2="18" stroke="white" stroke-width="2"/>
+            <path d="M5 11 Q18 14 31 11" stroke="#B3D1FF" stroke-width="1.5" fill="none"/>
+            <path d="M5 25 Q18 22 31 25" stroke="#B3D1FF" stroke-width="1.5" fill="none"/>
+          </svg>
+          <div class="logo-text">
+            <div class="footer-logo-name">STEREOMA</div>
+            <div class="footer-logo-sub">SYSTEMS GROUP</div>
+          </div>
+        </div>
+        <p class="footer-desc">Helping drone hardware startups build with confidence through CAD and simulation validation.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Contact</div>
+        <p class="footer-text">Brayden Murphy</p>
+        <a href="https://www.linkedin.com/in/brayden-e-murphy/" target="_blank" class="footer-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="2" width="20" height="20" rx="3" stroke="currentColor" stroke-width="1.8"/>
+            <line x1="7" y1="11" x2="7" y2="17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="7" cy="7.5" r="1.2" fill="currentColor"/>
+            <path d="M11 17v-4a2 2 0 014 0v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="11" y1="11" x2="11" y2="17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          LinkedIn Profile
+        </a>
+      </div>
+      <div>
+        <div class="footer-heading">Book a Call</div>
+        <p class="footer-text">15 minute call to discuss your drone design validation needs.</p>
+        <a href="https://calendly.com/brayden-emmetti/stereomasystemsroup" target="_blank" class="btn-footer">Schedule Now &rarr;</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-tagline">Engineered connections. Global impact.</div>
+      <div class="footer-copy">&copy; 2026 Stereoma Systems Group. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
